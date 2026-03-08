@@ -22,7 +22,9 @@ namespace ToDoManager
                         _toDoService.ListTasks();
                         break;
                     case 2:
-                        _toDoService.AddTask();
+                        string userTitle = GetNotNullString("Input Title: ");
+                        string userDescription = GetNotNullString("Input Description: ");
+                        _toDoService.AddTask(userTitle, userDescription);
                         break;
                     case 3:
                         _toDoService.CompleteTask();
@@ -70,6 +72,25 @@ namespace ToDoManager
             } while (isUserChoicevalid == false);
 
             return validatedUserReponse;
+        }
+
+
+        private string GetNotNullString(string prompt)
+        {
+            bool isStringNull = true;
+            string? userInput = ""; 
+            while (isStringNull)
+            {
+                Console.WriteLine(prompt);
+                userInput = Console.ReadLine();
+                if(userInput == "")
+                {
+                    Console.WriteLine("Input cannot be null");
+                    continue;
+                }
+                isStringNull = false;
+            }
+            return userInput;
         }
     }
 }

@@ -12,6 +12,11 @@ namespace ToDoManager
             }
             
             return JsonSerializer.Deserialize<List<ToDoItem>>(File.ReadAllText(@"data\Tasks.json"));
+
+        }
+        public static void SaveFile(List<ToDoItem> tasks)
+        {
+            File.WriteAllText(@"data\Tasks.json", JsonSerializer.Serialize<List<ToDoItem>>(tasks));   
         }
 
     }
