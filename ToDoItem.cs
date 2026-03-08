@@ -7,7 +7,7 @@ namespace ToDoManager
         string Description {get; set;} = string.Empty;
         bool IsCompleted {get; set;}
         DateTime CreatedAt {get; set;}
-        DateTime CompletedAt {get; set;}
+        DateTime? CompletedAt {get; set;}
 
     }
 }
