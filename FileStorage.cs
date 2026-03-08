@@ -10,6 +10,7 @@ namespace ToDoManager
             {
                 File.WriteAllText(@"data\Tasks.json", "[]");
             }
+            
             return JsonSerializer.Deserialize<List<ToDoItem>>(File.ReadAllText(@"data\Tasks.json"));
         }
 

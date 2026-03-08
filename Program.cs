@@ -8,6 +8,7 @@ namespace ToDoManager
         {
             ToDoService toDoService = new ToDoService(FileStorage.LoadFile());
             Menu menu = new Menu(toDoService);
+            menu.DirectUser();
         }
     }
 }
