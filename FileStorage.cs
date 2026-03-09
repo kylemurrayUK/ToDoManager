@@ -4,14 +4,20 @@ namespace ToDoManager
 {
     class FileStorage
     {
+        const string filePath = @"data\Tasks.json";
         public static List<ToDoItem> LoadFile()
         {
-            if (!File.Exists(@"data\Tasks.json"))
+            if (!Directory.Exists(@"data"))
             {
-                File.WriteAllText(@"data\Tasks.json", "[]");
+                Directory.CreateDirectory(@"data");
+            }
+            if (!File.Exists(filePath))
+            {
+
+                File.WriteAllText(filePath, "[]");
             }
             
-            return JsonSerializer.Deserialize<List<ToDoItem>>(File.ReadAllText(@"data\Tasks.json"));
+            return JsonSerializer.Deserialize<List<ToDoItem>>(File.ReadAllText(filePath));
 
         }
         public static void SaveFile(List<ToDoItem> tasks)

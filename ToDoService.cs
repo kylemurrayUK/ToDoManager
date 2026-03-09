@@ -78,9 +78,10 @@ namespace ToDoManager
             int itemForDeletionIndex = 0;
             foreach(ToDoItem task in _tasks)
             {
-                if(task.ID == inputtedID && matchCounter == 0)
+                if(task.ID == inputtedID)
                 {
-                    itemForDeletionIndex = indexCounter;
+                    if (matchCounter == 0)
+                    {itemForDeletionIndex = indexCounter;}
                     matchCounter++;
                 }
                 indexCounter++;
