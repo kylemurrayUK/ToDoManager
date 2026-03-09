@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace ToDoManager
 {
@@ -69,9 +70,36 @@ namespace ToDoManager
                 Console.WriteLine("No match found");
             }
         }
-        public void DeleteTask()
+        public void DeleteTask(int inputtedID)
         {
-            Console.WriteLine("Delete Tasks");
+            // find index save it then delete after loop completed
+            int matchCounter = 0;
+            int indexCounter = 0;
+            int itemForDeletionIndex = 0;
+            foreach(ToDoItem task in _tasks)
+            {
+                if(task.ID == inputtedID && matchCounter == 0)
+                {
+                    itemForDeletionIndex = indexCounter;
+                    matchCounter++;
+                }
+                indexCounter++;
+            }
+            if (matchCounter > 1)
+            {
+                Console.WriteLine("More than one item exists with this ID - no action taken");
+            }
+            else if (matchCounter == 1)
+            {
+                _tasks.Remove(_tasks[itemForDeletionIndex]);
+                FileStorage.SaveFile(_tasks);
+                _tasks = FileStorage.LoadFile();
+
+            }
+            else
+            {
+                Console.WriteLine("No match found");
+            }
         }
 
 

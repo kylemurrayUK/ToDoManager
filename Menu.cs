@@ -31,7 +31,8 @@ namespace ToDoManager
                         _toDoService.CompleteTask(selectedID);
                         break;
                     case 4:
-                        _toDoService.DeleteTask();
+                        selectedID = GetInt();
+                        _toDoService.DeleteTask(selectedID);
                         break;
                     case 5:
                         shouldProgramKeepGoing = false;
