@@ -33,15 +33,41 @@ namespace ToDoManager
         }
         public void AddTask(string Title, string Description)
         {
-            int id = FindID();
+            int id = FindNextID();
             ToDoItem newTask = new ToDoItem(id, Title, Description);
             _tasks.Add(newTask);
             FileStorage.SaveFile(_tasks);
             _tasks = FileStorage.LoadFile();
         }
-        public void CompleteTask()
+        public void CompleteTask(int inputtedID)
         {
-            Console.WriteLine("Complete Tasks");
+            int matchCounter = 0;
+            foreach(ToDoItem task in _tasks)
+            {
+                if (task.ID == inputtedID && task.IsCompleted == true)
+                {
+                    Console.WriteLine("Task is already completed!");
+                    matchCounter++;
+                    continue;
+                }
+                else if(task.ID == inputtedID && matchCounter == 0)
+                {
+                    task.IsCompleted = true;
+                    task.CompletedAt = DateTime.Now;
+                    matchCounter++;
+                    Console.WriteLine($"Task marked as complete with time of {task.CompletedAt}");
+                }
+            }
+            FileStorage.SaveFile(_tasks);
+            _tasks = FileStorage.LoadFile();
+            if (matchCounter > 1)
+            {
+                Console.WriteLine("More than one match was found with that id. Only one has been updated.");
+            }
+            else if (matchCounter < 1)
+            {
+                Console.WriteLine("No match found");
+            }
         }
         public void DeleteTask()
         {
@@ -49,7 +75,7 @@ namespace ToDoManager
         }
 
 
-        private int FindID()
+        private int FindNextID()
         {
             int id;
             if (_tasks.Count == 0)

@@ -27,7 +27,8 @@ namespace ToDoManager
                         _toDoService.AddTask(userTitle, userDescription);
                         break;
                     case 3:
-                        _toDoService.CompleteTask();
+                        int selectedID = GetInt();
+                        _toDoService.CompleteTask(selectedID);
                         break;
                     case 4:
                         _toDoService.DeleteTask();
@@ -91,6 +92,29 @@ namespace ToDoManager
                 isStringNull = false;
             }
             return userInput;
+        }
+
+        private int GetInt()
+        {
+            bool isValidInt = false;
+            string? userInput = "";
+            while (!isValidInt)
+            {
+                Console.WriteLine("Input task ID you want to complete: ");
+                userInput = Console.ReadLine();
+                if (userInput == "")
+                {
+                    Console.WriteLine("Input cannot be null");
+                    continue;
+                }
+                else if (!int.TryParse(userInput, out _))
+                {
+                    Console.WriteLine("Input has to be an integer");
+                    continue;
+                }
+                isValidInt = true;
+            }
+            return int.Parse(userInput);
         }
     }
 }
