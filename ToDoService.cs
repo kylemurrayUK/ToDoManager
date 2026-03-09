@@ -14,14 +14,28 @@ namespace ToDoManager
 
         public void ListTasks()
         {
-            Console.WriteLine("View Tasks");
+            foreach (ToDoItem task in _tasks)
+            {
+                Console.WriteLine($"ID: {task.ID}\n" +
+                                  $"Title: {task.Title}\n" +
+                                  $"Description: {task.Description}\n" +
+                                  $"Completed?: {task.IsCompleted}\n" +
+                                  $"Created on: {task.CreatedAt}");
+                if (task.IsCompleted == true)
+                {
+                    Console.WriteLine($"Tasks completed at: {task.CompletedAt}\n");
+                }
+                else
+                {
+                    Console.WriteLine("\n");
+                }
+            }
         }
         public void AddTask(string Title, string Description)
         {
             int id = FindID();
             ToDoItem newTask = new ToDoItem(id, Title, Description);
             _tasks.Add(newTask);
-            Console.WriteLine(_tasks[0].Description);
             FileStorage.SaveFile(_tasks);
             _tasks = FileStorage.LoadFile();
         }
