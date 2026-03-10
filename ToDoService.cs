@@ -17,7 +17,7 @@ namespace ToDoManager
         {
             foreach (ToDoItem task in _tasks)
             {
-                Console.WriteLine($"ID: {task.ID}\n" +
+                Console.WriteLine($"ID: {task.id}\n" +
                                   $"Title: {task.Title}\n" +
                                   $"Description: {task.Description}\n" +
                                   $"Completed?: {task.IsCompleted}\n" +
@@ -34,7 +34,7 @@ namespace ToDoManager
         }
         public void AddTask(string Title, string Description)
         {
-            int id = FindNextID();
+            int id = FindNextID(_tasks);
             ToDoItem newTask = new ToDoItem(id, Title, Description);
             _tasks.Add(newTask);
             FileStorage.SaveFile(_tasks);
@@ -44,13 +44,13 @@ namespace ToDoManager
             int matchCounter = 0;
             foreach(ToDoItem task in _tasks)
             {
-                if (task.ID == inputtedID && task.IsCompleted == true)
+                if (task.id == inputtedID && task.IsCompleted == true)
                 {
                     Console.WriteLine("Task is already completed!");
                     matchCounter++;
                     continue;
                 }
-                else if(task.ID == inputtedID && matchCounter == 0)
+                else if(task.id == inputtedID && matchCounter == 0)
                 {
                     task.IsCompleted = true;
                     task.CompletedAt = DateTime.Now;
@@ -77,10 +77,10 @@ namespace ToDoManager
             int itemForDeletionIndex = 0;
             foreach(ToDoItem task in _tasks)
             {
-                if(task.ID == inputtedID)
+                if(task.id == inputtedID)
                 {
                     if (matchCounter == 0)
-                    {itemForDeletionIndex = indexCounter;}
+                        {itemForDeletionIndex = indexCounter;}
                     matchCounter++;
                 }
                 indexCounter++;
@@ -101,16 +101,24 @@ namespace ToDoManager
         }
 
 
-        private int FindNextID()
+        private int FindNextID(List<ToDoItem> Tasks)
         {
             int id;
-            if (_tasks.Count == 0)
+            int highestID = 0;
+            if (Tasks.Count() == 0)
             {
                 id = 0;
             }
             else
             {
-                id = _tasks[_tasks.Count - 1].ID + 1;
+                foreach (ToDoItem task in Tasks)
+                {
+                    if (task.id > highestID)
+                    {
+                        highestID = task.id;
+                    }
+                } 
+                id = highestID + 1;
             }
             return id;
         }
