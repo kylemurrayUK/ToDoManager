@@ -23,18 +23,19 @@ namespace ToDoManager
             catch (JsonException)
             {
                 Console.WriteLine("Json exception thrown - invalid JSON in file. Empty list returned");
+                return new List<ToDoItem>();
             }
             if (loadedTasks == null)
             {
-                Console.WriteLine("Jnull file. Empty list returned");
+                Console.WriteLine("null file. Empty list returned");
+                return new List<ToDoItem>();
             }
             return loadedTasks;
 
         }
         public static void SaveFile(List<ToDoItem> tasks)
         {
-            File.WriteAllText(@"data\Tasks.json", JsonSerializer.Serialize<List<ToDoItem>>(tasks));   
+            File.WriteAllText(filePath, JsonSerializer.Serialize<List<ToDoItem>>(tasks));   
         }
-
     }
 }

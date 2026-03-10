@@ -34,7 +34,7 @@ namespace ToDoManager
             }
         private static bool DoesStringHaveValue(string? potentialNullValue)
         {
-            if (potentialNullValue == "")
+            if (string.IsNullOrWhiteSpace(potentialNullValue))
             {
                 Console.WriteLine("Null is not a valid answer");
                 return false;

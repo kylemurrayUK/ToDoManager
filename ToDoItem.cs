@@ -1,20 +1,17 @@
-using System.ComponentModel;
-using System.Data.Common;
-
 namespace ToDoManager
 {
     public class ToDoItem
     {
-        public int id {get; set;}
+        public int Id {get; set;}
         public string Title {get; set;} = string.Empty;
         public string Description {get; set;} = string.Empty;
         public bool IsCompleted {get; set;}
         public DateTime CreatedAt {get; set;}
         public DateTime? CompletedAt {get; set;}
 
-        public ToDoItem(int iD,string title, string description)
+        public ToDoItem(int id,string title, string description)
         {
-            id = iD;
+            Id = id;
             Title = title;
             Description = description;
             IsCompleted = false;

@@ -1,28 +1,24 @@
-using System.Globalization;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-
 namespace ToDoManager
 {
     class ToDoService
     {
         private List<ToDoItem> _tasks;
 
-        public ToDoService(List<ToDoItem> Tasks)
+        public ToDoService(List<ToDoItem> tasks)
         {
-            _tasks = Tasks;
+            _tasks = tasks;
         }
 
         public void ListTasks()
         {
             foreach (ToDoItem task in _tasks)
             {
-                Console.WriteLine($"ID: {task.id}\n" +
+                Console.WriteLine($"ID: {task.Id}\n" +
                                   $"Title: {task.Title}\n" +
                                   $"Description: {task.Description}\n" +
                                   $"Completed?: {task.IsCompleted}\n" +
                                   $"Created on: {task.CreatedAt}");
-                if (task.IsCompleted == true)
+                if (task.IsCompleted)
                 {
                     Console.WriteLine($"Tasks completed at: {task.CompletedAt}\n");
                 }
@@ -32,10 +28,10 @@ namespace ToDoManager
                 }
             }
         }
-        public void AddTask(string Title, string Description)
+        public void AddTask(string title, string description)
         {
             int id = FindNextID(_tasks);
-            ToDoItem newTask = new ToDoItem(id, Title, Description);
+            ToDoItem newTask = new ToDoItem(id, title, description);
             _tasks.Add(newTask);
             FileStorage.SaveFile(_tasks);
         }
@@ -44,13 +40,13 @@ namespace ToDoManager
             int matchCounter = 0;
             foreach(ToDoItem task in _tasks)
             {
-                if (task.id == inputtedID && task.IsCompleted == true)
+                if (task.Id == inputtedID && task.IsCompleted == true)
                 {
                     Console.WriteLine("Task is already completed!");
                     matchCounter++;
                     continue;
                 }
-                else if(task.id == inputtedID && matchCounter == 0)
+                else if(task.Id == inputtedID && matchCounter == 0)
                 {
                     task.IsCompleted = true;
                     task.CompletedAt = DateTime.Now;
@@ -59,7 +55,6 @@ namespace ToDoManager
                 }
             }
             FileStorage.SaveFile(_tasks);
-            _tasks = FileStorage.LoadFile();
             if (matchCounter > 1)
             {
                 Console.WriteLine("More than one match was found with that id. Only one has been updated.");
@@ -71,13 +66,12 @@ namespace ToDoManager
         }
         public void DeleteTask(int inputtedID)
         {
-            // find index save it then delete after loop completed
             int matchCounter = 0;
             int indexCounter = 0;
             int itemForDeletionIndex = 0;
             foreach(ToDoItem task in _tasks)
             {
-                if(task.id == inputtedID)
+                if(task.Id == inputtedID)
                 {
                     if (matchCounter == 0)
                         {itemForDeletionIndex = indexCounter;}
@@ -107,15 +101,15 @@ namespace ToDoManager
             int highestID = 0;
             if (Tasks.Count() == 0)
             {
-                id = 0;
+                id = 1;
             }
             else
             {
                 foreach (ToDoItem task in Tasks)
                 {
-                    if (task.id > highestID)
+                    if (task.Id > highestID)
                     {
-                        highestID = task.id;
+                        highestID = task.Id;
                     }
                 } 
                 id = highestID + 1;

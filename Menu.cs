@@ -9,7 +9,7 @@ namespace ToDoManager
             _toDoService = toDoService;
         }
 
-        public void DirectUser()
+        public void Run()
         {
             bool shouldProgramKeepGoing = true;
             int userChoice;
@@ -85,7 +85,7 @@ namespace ToDoManager
             {
                 Console.WriteLine(prompt);
                 userInput = Console.ReadLine();
-                if(userInput == "")
+                if(string.IsNullOrWhiteSpace(userInput))
                 {
                     Console.WriteLine("Input cannot be null");
                     continue;
@@ -101,7 +101,7 @@ namespace ToDoManager
             string? userInput = "";
             while (!isValidInt)
             {
-                Console.WriteLine("Input task ID you want to complete: ");
+                Console.WriteLine("Input ID: ");
                 userInput = Console.ReadLine();
                 if (userInput == "")
                 {

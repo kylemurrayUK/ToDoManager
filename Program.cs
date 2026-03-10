@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-
-namespace ToDoManager
+﻿namespace ToDoManager
 {
     class Program
     {
@@ -8,7 +6,7 @@ namespace ToDoManager
         {
             ToDoService toDoService = new ToDoService(FileStorage.LoadFile());
             Menu menu = new Menu(toDoService);
-            menu.DirectUser();
+            menu.Run();
         }
     }
 }
