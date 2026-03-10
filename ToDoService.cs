@@ -38,7 +38,6 @@ namespace ToDoManager
             ToDoItem newTask = new ToDoItem(id, Title, Description);
             _tasks.Add(newTask);
             FileStorage.SaveFile(_tasks);
-            _tasks = FileStorage.LoadFile();
         }
         public void CompleteTask(int inputtedID)
         {
@@ -94,8 +93,6 @@ namespace ToDoManager
             {
                 _tasks.Remove(_tasks[itemForDeletionIndex]);
                 FileStorage.SaveFile(_tasks);
-                _tasks = FileStorage.LoadFile();
-
             }
             else
             {
