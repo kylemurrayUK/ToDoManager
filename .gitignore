@@ -1,0 +1,6 @@
+bin/
+obj/
+data/
+.vscode/
+launch.json
+*.user
