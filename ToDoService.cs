@@ -53,6 +53,13 @@ namespace ToDoManager
                     matchCounter++;
                     Console.WriteLine($"Task marked as complete with time of {task.CompletedAt}");
                 }
+                else if(task.Id == inputtedID && matchCounter > 0)
+                {
+                    task.IsCompleted = true;
+                    task.CompletedAt = DateTime.Now;
+                    matchCounter++;
+                    Console.WriteLine($"Duplicate detected. Duplicate also marked as complete.");
+                }
             }
             FileStorage.SaveFile(_tasks);
             if (matchCounter > 1)
